@@ -1,6 +1,6 @@
 data "azurerm_platform_image" "ubuntu" {
   location  = "Central US"
-  publisher = "Canonical"
-  offer     = "UbuntuServer"
+  publisher = "canonical"
+  offer     = "0001-com-ubuntu-server-focal"
   sku       = "20.04-LTS"
 }
