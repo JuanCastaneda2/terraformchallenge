@@ -4,7 +4,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "terraformchallenge" {
   name     = "prueba"
-  location = "centralus"
+  location = var.location
 }
 
 resource "azurerm_virtual_network" "vnetprueba" {
@@ -33,25 +33,19 @@ resource "azurerm_network_interface" "nivm1" {
   }
 }
 
-resource "azurerm_windows_virtual_machine" "vm1" {
-  name                = "vm1"
+resource "azurerm_linux_virtual_machine" "vm1" {
+  name                = var.instance_name
   resource_group_name = azurerm_resource_group.terraformchallenge.name
   location            = azurerm_resource_group.terraformchallenge.location
   size                = "Standard_F2"
   network_interface_ids = [
     azurerm_network_interface.nivm1.id
   ]
+  source_image_id = data.azurerm_platform_image.ubuntu
 
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
-  }
-
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
-    version   = "latest"
   }
 
   computer_name  = "vm1"
