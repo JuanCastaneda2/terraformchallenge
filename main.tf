@@ -41,7 +41,12 @@ resource "azurerm_linux_virtual_machine" "vm1" {
   network_interface_ids = [
     azurerm_network_interface.nivm1.id
   ]
-  source_image_id = data.azurerm_platform_image.ubuntu_image.id
+  source_image_reference {
+    publisher = data.azurerm_platform_image.ubuntu_image.publisher
+    offer     = data.azurerm_platform_image.ubuntu_image.offer
+    sku       = data.azurerm_platform_image.ubuntu_image.sku
+    version   = data.azurerm_platform_image.ubuntu_image.version
+  }
 
   os_disk {
     caching              = "ReadWrite"
