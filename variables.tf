@@ -4,3 +4,6 @@ variable "instance_name" {
 variable "location" {
   type      = string
 }
+variable "public_key" {
+  type      = string
+}
